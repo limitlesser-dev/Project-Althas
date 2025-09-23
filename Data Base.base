@@ -1,0 +1,5 @@
+views:
+  - type: cards
+    name: View
+    sort: []
+    image: file.file

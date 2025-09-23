@@ -1,0 +1,222 @@
+{
+  "main": {
+    "id": "f3eb1044585a34f9",
+    "type": "split",
+    "children": [
+      {
+        "id": "de155b544f502969",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "56703aa8c71b6699",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "🚀Start Here - Decoding Artificial Intelligence(An In-Depth Exploration).md",
+                "mode": "preview",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "🚀Start Here - Decoding Artificial Intelligence(An In-Depth Exploration)"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cf214789eec8ce70",
+    "type": "split",
+    "children": [
+      {
+        "id": "8bbd258fe44505ef",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1abff3edcdcaa9e6",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byModifiedTime",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "311b9f37d8020024",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "Multilinguality",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "a0f496c428b1192e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 263.5
+  },
+  "right": {
+    "id": "411c95cc4c5bf7a1",
+    "type": "split",
+    "children": [
+      {
+        "id": "f8629e00c7735308",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6bc7a7c1e5d0ef32",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Untitled.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Untitled"
+            }
+          },
+          {
+            "id": "34bc32a23eaf3e00",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Untitled.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Untitled"
+            }
+          },
+          {
+            "id": "d817df11e55a5a2f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "6b09db8fb5a0196c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Untitled.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Untitled"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:Create new base": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "audio-recorder:Start/stop recording": false,
+      "markdown-importer:Open format converter": false
+    }
+  },
+  "active": "1abff3edcdcaa9e6",
+  "lastOpenFiles": [
+    "🚀Start Here - Decoding Artificial Intelligence(An In-Depth Exploration).md",
+    "Untitled.md",
+    "not yet soted/Gemini In-Depth.md",
+    "Resources/Gemini - A Family of Highly Capable Multimodal Models.pdf",
+    "In-Depth/Gemini - A Family of Highly Capable Multimodal Models(Summary).md",
+    "Pasted image 20250923182528.png",
+    "Pasted image 20250923182547.png",
+    "Over All In-Depth Conclusion.md",
+    "Data Base.base",
+    "Definitions/hallucinations.md",
+    "Media/Audios/Gemini_Unlocked__The_Native_Multimodality_and_Reasoning_Breakth.mp4",
+    "Multilinguality.md",
+    "Definitions/Multilingual.md",
+    "Definitions/Generalist AI Model.md",
+    "Definitions/BIG-Bench-Hard (BBH).md",
+    "Definitions/AI frameworks.md",
+    "Definitions/SentencePiece Tokenizer.md",
+    "Definitions/Silent Data Corruption (SDC).md",
+    "Definitions/TPUv4 and TPUv5e Accelerators.md",
+    "Definitions/Tokens.md",
+    "Definitions/Transformer Decoders.md",
+    "Definitions/Transformer Models.md",
+    "Definitions/Unimodal Components.md",
+    "Definitions/Universal Speech Model (USM).md",
+    "Definitions/Unsupervised Learning.md",
+    "Definitions/WMT23 Translation, Very Low-Resource Languages, MGSM, and XLSum.md",
+    "Definitions/Gemini Responsible AI Framework.md",
+    "Definitions/Gemini Ultra Model Card.md",
+    "Definitions/Gemini Video Understanding Benchmarks.md",
+    "Definitions/Google DeepMind.md",
+    "Definitions/i18n locale-specific safety data generation.md",
+    "Media/Images/_- visual selection.png",
+    "Media/Images/Google_Gemini_logo.svg.png",
+    "Media/Images/_- visual selection (1).png",
+    "Media/Images",
+    "Untitled.canvas",
+    "Media/Audios/New_Project.mp3",
+    "Media/Audios",
+    "Untitled 1.base",
+    "Untitled.pdf",
+    "Mind Maps/Multimodals Mind Map.pdf",
+    "Resources/Capabilities of Gemini Models in Medicine.pdf",
+    "Media/Images/_- visual selection (2).png",
+    "1_AsXti9JBcuEGIODbisEAYw.jpg",
+    "NotebookLM Mind Map (1).png"
+  ]
+}
