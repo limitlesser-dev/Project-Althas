@@ -57,7 +57,7 @@ To use **Project Althas**, follow these steps:
 ---
 
 ## 🚀 **Start from Here**
-New to Project Althas? Begin your journey with our **[Central Hub](link-to-central-hub-file)**—a **collection of sneak peek summaries and primary details** for quick reference. This hub includes:
+New to Project Althas? Begin your journey with our **[Central Hub](🚀Start Here - Decoding Artificial Intelligence(An In-Depth Exploration))**—a **collection of sneak peek summaries and primary details** for quick reference. This hub includes:
 - **Sneak peeks** of research paper summaries.
 - **Primary details** and insights.
 - **Links to NotebookLM summaries** (a Google AI tool for in-depth exploration).
