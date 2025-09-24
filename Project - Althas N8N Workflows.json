@@ -1,0 +1,1123 @@
+{
+  "name": "Project - Althas",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# Main Summary",
+        "height": 400,
+        "width": 1472
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        -736
+      ],
+      "typeVersion": 1,
+      "id": "02c25748-9eb7-4c21-a77b-8f72ef94772a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "formTitle": "=data",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "=data",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -144,
+        -624
+      ],
+      "id": "7d902b66-6aae-4f52-90b5-78c9ac43475b",
+      "name": "Upload Research Paper",
+      "webhookId": "306b4da8-ee1a-44d6-93a9-339efc129c4b"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -624
+      ],
+      "id": "5559190b-e263-4ce1-b395-f74dd38ae166",
+      "name": "Extract Text From PDF"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -480
+      ],
+      "id": "d02278c3-128c-49be-90b3-8a528e1dc173",
+      "name": "Google Gemini Chat Model 1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PZNd4kIpaQvaFTpX",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -480
+      ],
+      "id": "e79f903b-5fcd-485f-94af-9edc6b162a40",
+      "name": "Google Gemini Chat Model 2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PZNd4kIpaQvaFTpX",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the final reviewer AI.\n\nYour task is to carefully review the following academic paper summary and ensure it follows this instruction:\n\n> \"Summarize the academic paper in Obsidian format using appropriate features such as headings, callouts, bold/italic text, and bullet points. Do **not** use triple backticks. Add Obsidian-style internal links (e.g., `[[Term]]`) only for difficult or uncommon words.\"\n\n---\n\n📝 Summary to Review:  \n{{$json.output}}\n\n---\n\nIf the summary is correct, return it as-is.  \nIf you find any issues (formatting, clarity, missing features, improper linking, etc.), fix them directly and return the improved summary.\n\nThe output must be clean, properly structured, and ready to be used in Obsidian.\n\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        576,
+        -624
+      ],
+      "id": "a611dfe8-f5ee-436a-ad47-74e1ba6dbac6",
+      "name": "Checker AI Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Summarize the following academic paper in Obsidian format using appropriate Obsidian features such as headings, callouts, bold/italic text, and bullet points. Do not use triple backticks (```) at the beginning or end. Add Obsidian-style internal links (e.g., [[Your_Link]]) to explain difficult or uncommon terms only when necessary.\nInput:\n{{ $json.text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        256,
+        -624
+      ],
+      "id": "80308d79-6f88-4851-bb20-8f275aeed645",
+      "name": "Summarizer AI Agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const text = item.json.output;\n  const buffer = Buffer.from(text, 'utf-8');\n\n  return {\n    binary: {\n      data: {\n        data: buffer.toString('base64'),\n        mimeType: 'text/plain',\n        fileName: 'llm-response.txt',\n      },\n    },\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        -624
+      ],
+      "id": "40806901-4206-44f5-a058-649ab4ba0af4",
+      "name": "Json To Binary",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=C:\\Users\\admin\\Desktop\\Project althas test study\\ {{ $('Extract Text From PDF').item.json.info.Title }}.md",
+        "dataPropertyName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        -624
+      ],
+      "id": "b3c5a91e-d49a-4812-9d10-c582bb25a316",
+      "name": "Save To Disk"
+    },
+    {
+      "parameters": {
+        "content": "# Keyword Extractor\n- This is a junior extractor. This can extract words and save them in a file in a format of table.\n- This gives more control over what words should be processed.",
+        "height": 448,
+        "width": 1200,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        656
+      ],
+      "typeVersion": 1,
+      "id": "f28c18e9-b044-46d2-b6c0-45c8a621da2d",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# The Main Keyword Extractor and Defineder",
+        "height": 880,
+        "width": 2656,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        -272
+      ],
+      "typeVersion": 1,
+      "id": "66548aef-1b4f-47de-a70e-c3d968803b74",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -128
+      ],
+      "id": "5ec11d43-288e-46fd-9d8e-e2582a4c1eb6",
+      "name": "Start"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Your job is to look into this file with your tool by using cmd command type to this file \"C:\\Users\\admin\\Desktop\\Project_althas_test_study\\keywords.md\". You are going to get all the words which are in here which are ready for being defined or ready. for the definition to be made. After you're going to get the words, you're going to response with the words separated with comma. and be smart as to is it a ligiet word or not",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        -128
+      ],
+      "id": "65846989-95ab-4adc-89ca-0114dec4c1f4",
+      "name": "Word Extractor From A File"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        64,
+        0
+      ],
+      "id": "30bf8055-86f2-45a5-af9a-f18fef170efa",
+      "name": "Google Gemini Chat Model 3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "71O6AWAi7GleqJop",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "executeOnce": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Execute_Once', ``, 'boolean') }}",
+        "command": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Command', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.executeCommandTool",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f39a6736-24e9-4194-8adb-e28473d60cf1",
+      "name": "Open File Execute Command"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        0,
+        176
+      ],
+      "id": "64e6032c-7ccc-46ff-9402-6f1b7421e459",
+      "name": "Extract Text From Summary"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=**Your Role:**\nYou are a highly intelligent AI specialized in semantic text parsing and intelligent keyword extraction. You possess advanced capabilities for recognizing synonyms, abbreviations, acronyms, and semantically related terms.\n\n**Your Sole Task:**\nIntelligently identify, consolidate, and extract keywords from the given text with smart deduplication and semantic grouping.\n\n**Input:**\n{{ $json.data }}\n\n**Keyword Format Rule:**\nOnly extract terms that are written in Obsidian-style wiki-links: [[Keyword]].\n\n**Alias Handling:**\nIf a link includes an alias (e.g., [[Canonical Name|Alias Text]]), extract only the canonical name (the part before the |).\n\n**Smart Intelligence Rules:**\n1. **Abbreviation Detection**: If you find both an abbreviation and its full form (e.g., [[RLHF]] and [[Reinforcement Learning from Human Feedback]]), output only the full form.\n\n2. **Semantic Grouping**: If you find related terms that refer to the same concept or are closely related subsets (e.g., [[Reinforcement Learning]] and [[Reinforcement]]), combine them into the most comprehensive term (output: \"Reinforcement Learning\").\n\n3. **Synonym Recognition**: If multiple terms are synonymous or refer to the same concept with different wording, output only the most commonly used or comprehensive version.\n\n4. **Hierarchical Relationships**: When you encounter terms where one is a subset of another (e.g., [[Machine Learning]] and [[Supervised Learning]]), include both as they represent different levels of specificity.\n\n**Output Format Rules:**\n- Output only the intelligently consolidated keywords\n- Output must be a single line, comma-separated (e.g., Transformer Models,Large Language Models)\n- Do not include spaces after commas\n- Do not include brackets ([[ ]]), alias text, or any extra formatting\n- Do not output explanations, context, greetings, or summaries — only the keyword line\n\n**Example:**\n**User Input:**\nIn the field of [[Artificial Intelligence]], research on [[RLHF]] and [[Reinforcement Learning from Human Feedback]] has shown that [[RL]] and [[Reinforcement Learning]] techniques are crucial. The [[Transformer Models]] architecture powers most [[Large Language Models|LLMs]], which are a subset of [[AI]] systems in [[Machine Learning]].\n\n**Output:**\nArtificial Intelligence,Reinforcement Learning from Human Feedback,Reinforcement Learning,Transformer Models,Large Language Models,Machine Learning",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        160,
+        176
+      ],
+      "id": "2c77ee66-298a-4ecc-bdf7-0d0a0e762fe2",
+      "name": "Extract Words From Text"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        160,
+        288
+      ],
+      "id": "71ef6a7d-a25d-48e6-993d-e6a5feefcc3c",
+      "name": "Google Gemini Chat Model 4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "71O6AWAi7GleqJop",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// This assumes the list of words is in a single string separated by commas\n// You can adjust the input as needed\n\nconst rawText = $json[\"output\"]; // this is your LLM output string\nconst words = rawText.split(\",\").map(word => word.trim()); // split & clean\n\nreturn words.map(word => {\n  return {\n    json: {\n      word: word\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        176
+      ],
+      "id": "820c9d25-74f0-4833-9536-327a43e48eab",
+      "name": "Word Separator"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        720,
+        176
+      ],
+      "id": "df708d95-d02b-4cfd-8e5e-740dcbb86663",
+      "name": "Looper"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a definition checker for research paper keywords. Be SELECTIVE and PRECISE.\n\nTask: Check if \"{{$json.word}}\" needs a new definition file.\n\nStep 1: List existing files\n`dir \"C:\\Users\\admin\\Desktop\\Project-Althlas-main\\Definitions\" /b`\n\nStep 2: Apply STRICT filtering criteria\nOnly return \"404\" if you find a file that is:\n- Semantically identical or substantially overlapping with \"{{$json.word}}\"\n- Would make creating a new definition redundant\n\nStep 3: Bias toward creating NEW definitions\n- When in doubt, assume the word NEEDS a definition\n- Only block if there's clear conceptual redundancy\n- Consider that research papers often need precise, specific definitions\n\nOutput Logic:\n- Found SUBSTANTIALLY similar concept → \"404\" \n- Found only loosely related terms → \"{{$json.word}}\"\n- Found nothing related → \"{{$json.word}}\"\n- Uncertain → \"{{$json.word}}\"\n\nExample:\n- Word: \"neural networks\" \n- Existing: \"AI.txt\", \"machine_learning.txt\"\n- Decision: These are related but \"neural networks\" is specific enough → return \"neural networks\"",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        192
+      ],
+      "id": "1f810b6c-24f9-4145-8baf-6eb0be2041b2",
+      "name": "Word Checker"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Executes this tool ",
+        "executeOnce": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Execute_Once', ``, 'boolean') }}",
+        "command": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Command', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.executeCommandTool",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        416
+      ],
+      "id": "94523439-2cb8-4efb-9a98-71c3348a1256",
+      "name": "Dir Folder Execute Command"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        880,
+        416
+      ],
+      "id": "156a867d-f677-4bc8-a24b-319e7c59fdff",
+      "name": "Google Gemini Chat Model 5",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "71O6AWAi7GleqJop",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "66c55a5e-7dd6-449a-8897-bc8e662012a0",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "={{ $('Looper').item.json.word }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1168,
+        192
+      ],
+      "id": "b7ee48a1-4b8e-4c71-87d1-dccb31d748cd",
+      "name": "Gate"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=# AI/Computer Science Obsidian Definition Template Prompt\n\nCreate a comprehensive definition for the artificial intelligence or computer science term **{{$json.output}}** using Obsidian markdown format. Focus specifically on the AI/CS context and applications, avoiding generic or non-technical interpretations.\n\n## Required Structure:\n\n**YAML Frontmatter:**\n- Start with --- \n- Include relevant AI/CS tags as a list under tags: (e.g., artificial-intelligence, machine-learning, computer-science, algorithms, data-structures)\n- Add aliases array with technical abbreviations, acronyms, and alternative names commonly used in AI/CS\n- End with ---\n\n**Main Heading:**\n- Use # Term Name format\n\n**Core Concept:**\n- Provide a concise definition paragraph explaining what the term is **from an AI/Computer Science perspective**\n- Start with a clear, accessible explanation that a general reader can understand\n- Then build toward technical accuracy and computational context\n- Use **bold** for the main term and key technical concepts\n- Use ==highlighting== for critical learning points and fundamental AI/CS principles\n- Include [[Wiki Links]] only when referencing related AI/CS concepts that would genuinely help understanding (e.g., [[Neural Networks]], [[Algorithms]], [[Machine Learning]])\n- End with a > [!quote] callout box containing an essence summary that captures the AI/CS significance in plain language\n\n**Horizontal Rule:**\n- Use --- to separate core concept from in-depth section\n\n**In-Depth Information:**\n- Use ## In-Depth Information heading\n- Break into logical subsections using ### Subheading format, prioritizing:\n  - **What It Is** (accessible explanation with real-world analogies)\n  - **How It Works** (technical implementation explained clearly)\n  - **AI/ML Applications** (specific use cases with concrete examples)\n  - **Types/Variations** (different approaches explained simply)\n  - **Why It Matters** (significance in AI/CS and broader impact)\n\n- Utilize these Obsidian features strategically:\n  - **Bold text** for technical terms and key concepts\n  - *Italics* for nuanced technical distinctions\n  - ==Highlighting== for fundamental AI/CS principles and breakthrough concepts\n  - [[Wiki Links]] judiciously for related AI/CS concepts that enhance understanding\n  - > [!TIP], > [!QUOTE], > [!SUMMARY], > [!WARNING] callout blocks for technical insights\n  - Numbered and bulleted lists for algorithms, steps, or technical specifications\n  - Blockquotes for important theoretical statements or definitions\n\n- Include practical AI/CS applications with real-world examples, analogies that make complex concepts accessible\n- Cover technical aspects while explaining them in understandable terms\n- Use analogies and comparisons to familiar concepts when explaining complex technical ideas\n- Balance depth with clarity - provide technical details but explain their significance\n\n**Final Summary Callout:**\n- End with > [!SUMMARY] callout containing key technical takeaways and AI/CS significance\n\n**Sources:**\n- Prioritize academic papers, technical documentation, and authoritative AI/CS resources\n- Include publication dates and DOIs where available\n- Reference standard textbooks, research papers, or official documentation\n- Format as numbered or bulleted list\n\n**Tags (at very end):**\n- Include relevant AI/CS hashtags: #artificial-intelligence #machine-learning #computer-science #algorithms #data-science #neural-networks #deep-learning\n- Use hierarchical tags: #concept/algorithm #concept/data-structure #ai/supervised-learning\n\n## Formatting Requirements:\n- DO NOT use code blocks with backticks anywhere in the definition or instructions\n- DO use [[Wiki Links]] when they genuinely enhance understanding of related AI/CS concepts\n- DO use ==highlighting== for key computational concepts and learning points\n- Use proper heading hierarchy (##, ###, ####)\n- Apply callout blocks where they enhance technical understanding\n- Maintain consistent formatting patterns\n- Let technical content guide formatting choices while following the established structure\n\n## AI/CS Focus with Accessibility Guidelines:\n- Always interpret terms through the lens of artificial intelligence and computer science\n- Start with accessible explanations, then layer in technical details\n- Use analogies and real-world comparisons to explain complex concepts\n- Avoid jargon without explanation - define technical terms when first introduced\n- Structure information from general understanding to specific technical implementation\n- Include concrete examples that illustrate abstract concepts\n- Balance technical accuracy with readability for diverse audiences\n- Connect concepts to everyday technology people might recognize\n- Use progressive disclosure: simple explanation → detailed technical aspects\n- Include mathematical formulations when relevant, but explain their practical meaning\n\nCreate a definition that is both technically accurate for AI/CS professionals and accessible to curious general readers, ensuring the content bridges the gap between complex computational concepts and everyday understanding.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        176
+      ],
+      "id": "5ae3b8f6-d19d-41b9-9253-2e881a6b5f9d",
+      "name": "Word Defineder"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        416
+      ],
+      "id": "a74cde05-91af-4510-a750-b86b4229d22a",
+      "name": "Google Gemini Chat Model 6",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "71O6AWAi7GleqJop",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const text = item.json.output;\n  const buffer = Buffer.from(text, 'utf-8');\n\n  return {\n    binary: {\n      data: {\n        data: buffer.toString('base64'),\n        mimeType: 'text/plain',\n        fileName: 'llm-response.txt',\n      },\n    },\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1648,
+        176
+      ],
+      "id": "99263780-211e-4311-a045-9ae1856ba660",
+      "name": "Json to Binary"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1824,
+        192
+      ],
+      "id": "c5855463-a984-4873-8159-ebdb0eac109c",
+      "name": "Title and Definition"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const word = String(item.json.output ?? '');\n  const binaryData = item.binary?.data;\n  if (!binaryData) throw new Error(\"No binary data found in item\");\n\n  let safeFileName = word\n    .normalize('NFKC')\n    .replace(/[<>:\"/\\\\|?*\\x00-\\x1F]/g, '') // remove invalid filename & control chars\n    .replace(/^[\\s\\u00A0\\uFEFF\\u200B\\u200C\\u200D\\u2060]+|[\\s\\u00A0\\uFEFF\\u200B\\u200C\\u200D\\u2060]+$/g, '') // trim many unicode spaces\n    .replace(/\\s+/g, ' ') // collapse multiple spaces into one\n    .trim();\n\n  if (!safeFileName) safeFileName = `untitled-${Date.now()}`;\n\n  item.binary.data.fileName = `${safeFileName}.md`;\n  return item;\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        192
+      ],
+      "id": "c73b6897-3f64-4daf-a5cd-02cf631f6b2f",
+      "name": "Title"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=C:\\Users\\admin\\Desktop\\Project_althas_test_study\\keywords_definitions\\ {{$binary.data.fileName}}",
+        "dataPropertyName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        192
+      ],
+      "id": "71724a1f-551d-47b2-ba8b-ffc2b91c47b6",
+      "name": "Save To Folder"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        176,
+        928
+      ],
+      "id": "7112e9de-e7cf-4e3a-9047-8477ca689bed",
+      "name": "Google Gemini Chat Model 7",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PZNd4kIpaQvaFTpX",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Mini Keyword Extractor From File",
+        "height": 352,
+        "width": 704,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -192,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "91ea89ed-06cf-4fe9-a3c7-b00db0d63c6d",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "formTitle": "=data",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "=data",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -176,
+        176
+      ],
+      "id": "ad2d6742-4747-4f17-b293-581db41a6ced",
+      "name": "Submit Research Paper Summary",
+      "webhookId": "cb0242dc-ce49-451a-85b3-9667e25b165f"
+    },
+    {
+      "parameters": {
+        "formTitle": "=data",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "=data",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -160,
+        816
+      ],
+      "id": "b3d47f6a-9e7d-4d4b-bed0-4674274f5565",
+      "name": "Submit Summary",
+      "webhookId": "507ed85f-16f7-4cb5-8c9a-399a17393eea"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        16,
+        816
+      ],
+      "id": "7633fd1a-08a0-4eac-b357-f398f5afc263",
+      "name": "Extract Text From File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=**Your Role:**\nYou are a highly intelligent AI specialized in semantic text parsing and intelligent keyword extraction. You possess advanced capabilities for recognizing synonyms, abbreviations, acronyms, and semantically related terms.\n\n**Your Sole Task:**\nIntelligently identify, consolidate, and extract keywords from the given text with smart deduplication and semantic grouping.\n\n**Input:**\n{{ $json.data }}\n\n**Keyword Format Rule:**\nOnly extract terms that are written in Obsidian-style wiki-links: [[Keyword]].\n\n**Alias Handling:**\nIf a link includes an alias (e.g., [[Canonical Name|Alias Text]]), extract only the canonical name (the part before the |).\n\n**Smart Intelligence Rules:**\n1. **Abbreviation Detection**: If you find both an abbreviation and its full form (e.g., [[RLHF]] and [[Reinforcement Learning from Human Feedback]]), output only the full form.\n2. **Semantic Grouping**: If you find related terms that refer to the same concept or are closely related subsets (e.g., [[Reinforcement Learning]] and [[Reinforcement]]), combine them into the most comprehensive term (output: \"Reinforcement Learning\").\n3. **Synonym Recognition**: If multiple terms are synonymous or refer to the same concept with different wording, output only the most commonly used or comprehensive version.\n4. **Hierarchical Relationships**: When you encounter terms where one is a subset of another (e.g., [[Machine Learning]] and [[Supervised Learning]]), include both as they represent different levels of specificity.\n\n**Output Format Rules:**\n- Output only the intelligently consolidated keywords in an Obsidian markdown table format\n- Use a single-column table with \"Keywords\" as the header\n- Each keyword should be on its own row\n- Do not include brackets ([[ ]]), alias text, or any extra formatting in the table cells\n- Do not output explanations, context, greetings, or summaries — only the markdown table\n\n**Example:**\n\n**User Input:**\nIn the field of [[Artificial Intelligence]], research on [[RLHF]] and [[Reinforcement Learning from Human Feedback]] has shown that [[RL]] and [[Reinforcement Learning]] techniques are crucial. The [[Transformer Models]] architecture powers most [[Large Language Models|LLMs]], which are a subset of [[AI]] systems in [[Machine Learning]].\n\n**Output:**\n| Keywords |\n|----------|\n| Artificial Intelligence |\n| Reinforcement Learning from Human Feedback |\n| Reinforcement Learning |\n| Transformer Models |\n| Large Language Models |\n| Machine Learning |",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        176,
+        816
+      ],
+      "id": "012190b0-de96-49bd-a9d3-9b81e47fde0b",
+      "name": "Word Extractor"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const text = item.json.output;\n  const buffer = Buffer.from(text, 'utf-8');\n\n  return {\n    binary: {\n      data: {\n        data: buffer.toString('base64'),\n        mimeType: 'text/plain',\n        fileName: 'llm-response.txt',\n      },\n    },\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        816
+      ],
+      "id": "2b3ef159-cfec-48b4-b9d1-dfb4be524933",
+      "name": "JSON To Binary"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=C:\\Users\\admin\\Desktop\\Project_althas_test_study\\keywords_definitions\\ hello.md",
+        "dataPropertyName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        720,
+        816
+      ],
+      "id": "e783aebe-3545-4d37-b4f8-2c396e8ddca4",
+      "name": "Saves File"
+    },
+    {
+      "parameters": {
+        "content": "# #Local First",
+        "height": 80,
+        "width": 224,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1664,
+        -1216
+      ],
+      "typeVersion": 1,
+      "id": "00d732df-50df-460e-b8a3-30666bc69d5e",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# N8N Research Paper Processing Workflow\n\n**Created by:** Azeem Sheikh\n\n## Overview\n\nThis comprehensive N8N workflow system transforms long research papers into beautiful, stylized summaries and creates comprehensive keyword definitions. The system consists of three distinct workflow components that work together to provide a complete research paper processing solution. All outputs are formatted for Obsidian and saved as markdown files.\n\n## Visual Workflow Structure\n\nThe workflow is organized into three color-coded sections:\n\n- **🟡 Main Summary** (Top - Yellow/Brown section)\n- **🟢 The Main Keyword Extractor and Defineder** (Middle - Green section)\n- **🔴 Keyword Extractor** (Bottom - Red section)\n\n---",
+        "height": 480,
+        "width": 896,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16,
+        -1248
+      ],
+      "typeVersion": 1,
+      "id": "ee73e824-b06d-471c-8f79-2e3cc02dce43",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "### 1. Main Summary Workflow (🟡 Yellow Section)\n\n**Purpose:** Converts research papers into beautifully formatted summaries\n\n**Visible Components in Workflow:**\n\n- Manual Trigger (Start point)\n- Multiple processing nodes for text analysis and formatting\n- File operations for saving outputs\n\n**Process:**\n\n- Takes long research papers as input through manual trigger\n- Processes content through multiple AI agents for analysis and summarization\n- Generates beautiful, stylized summaries optimized for research understanding\n- Formats output specifically for Obsidian markdown compatibility\n- Saves final summaries as markdown files in configured directory\n\n**Requirements:**\n\n- Best suited for academic research paper summaries\n- Requires Obsidian for optimal formatting experience\n- Configure the save path before running the workflow\n- Manual input required to start the process\n\n**Output:** Creates a formatted markdown summary that can be used as input for the keyword extraction workflows\n\n---",
+        "height": 592,
+        "width": 672
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -928,
+        -928
+      ],
+      "typeVersion": 1,
+      "id": "933a9719-d93f-4ac9-990c-a96ff9bf0c17",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "### 2. The Main Keyword Extractor and Defineder (🟢 Green Section)\n\n**Purpose:** Comprehensive keyword processing with two distinct pathways\n\nThis section contains two parallel processing streams:\n\n#### **Top Stream - Mini Keyword Extractor From File:**\n\n**Purpose:** Processes keywords that were previously extracted and saved by the Junior Extractor\n\n**Detailed Process Flow:**\n\n**File Reading Phase:**\n\n- Accesses the specific file containing keywords saved by the Junior Keyword Extractor (red section)\n- Reads stored keywords from the designated file location\n- Extracts all words from the file in their stored format\n\n**Word Processing Phase:**\n\n- Formats extracted words into a comma-separated series\n- **Word Separator Node (Code Block):** Removes commas and creates individual word entries\n- Prepares words for systematic processing through the definition pipeline\n\n**Checking and Validation Loop:**\n\n- **Looper System:** Feeds one word at a time to the checking mechanism\n- **Word Checker Agent:**\n    - Uses command node functionality to search the definition database/folder\n    - Checks if a definition already exists for the current word\n    - Searches for exact matches or related/similar existing definitions\n    - **Return Codes:**\n        - `404`: Definition already exists → word is skipped\n        - Returns actual word: No definition found → word proceeds to definition creation\n\n**Gate Logic Control:**\n\n- **IF Statement (Gate):** Acts as quality control checkpoint\n- **Logic:** Compares Word Checker output with the original looper word\n- **Pass Condition:** If Word Checker returns the actual word (indicating no existing definition), the word passes through to the Word Definer\n- **Block Condition:** If Word Checker returns `404` (definition exists), the word is blocked and the looper advances to the next word\n\n**Definition Creation Pipeline:**\n\n- **Word Definer Agent:**\n    - Conducts comprehensive online research for approved words\n    - Creates detailed, in-depth definitions for thorough understanding\n    - Includes multiple authoritative sources and references\n    - Formats definitions with proper academic structure and context\n    - Ensures definitions are suitable for research-level understanding\n\n**File Processing and Storage:**\n\n- **Binary Conversion:** Definition content is converted to binary format for efficient storage\n- **Title and Definition Merger (Code Node):**\n    - Intelligently combines the word title with its complete definition\n    - Merges all components into a properly formatted, cohesive structure\n    - Ensures consistency in formatting across all definitions\n- **Final Storage:** Saves the merged content as individual definition files in the designated definitions folder\n\n#### **Bottom Stream - Direct Summary Processing:**\n\n**Purpose:** Processes wiki-linked terms directly from manually provided summaries\n\n**Process:**\n\n- Takes manually provided markdown summary (from Main Summary workflow output)\n- Extracts only words that are formatted as wiki links within the summary\n- Provides limited user control (processes all detected wiki-linked terms automatically)\n- Follows similar checking, validation, and definition creation process as the top stream\n- Creates definitions for terms that were embedded as wiki links in the original summary\n\n---",
+        "height": 1584,
+        "width": 704,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -960,
+        -272
+      ],
+      "typeVersion": 1,
+      "id": "1055bf08-5239-47ef-bd80-8543bec8d9ed",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "### 3. Keyword Extractor (🔴 Red Section - Junior Extractor)\n\n**Purpose:** Manual keyword extraction providing maximum user control and flexibility\n\n**Key Advantage:** This component provides significantly MORE control over the keyword selection process compared to the automated wiki-link extraction in the green section.\n\n**Detailed Process:**\n\n**Input Processing:**\n\n- Takes the same manually provided summary used in other workflows\n- Uses more flexible, intelligent extraction logic rather than rigid wiki-link detection\n- Allows for nuanced keyword identification based on context and importance\n\n**Extraction Method:**\n\n- Employs simpler yet more sophisticated keyword detection algorithms\n- Identifies important terms, concepts, and technical vocabulary\n- Provides user oversight and control over which terms are selected for processing\n- Filters out common words and focuses on research-relevant terminology\n\n**Output and Storage:**\n\n- Formats extracted keywords in organized table format\n- Saves the curated keyword list to a specific designated file\n- Creates a structured file that serves as input for the Mini Keyword Extractor (green section top stream)\n\n**Control Benefits:**\n\n- **Enhanced User Control:** Allows manual review and selection of keywords before processing\n- **Quality Filtering:** Prevents processing of unnecessary or irrelevant terms\n- **Reduced AI Load:** Processes fewer, more targeted terms, improving efficiency\n- **Strategic Selection:** Enables focus on the most important concepts for definition creation\n- **Cost Efficiency:** Reduces API calls and processing time by being selective\n\n**Integration with System:**\n\n- Creates the keyword file that feeds into the \"Mini Keyword Extractor From File\" stream in the green section\n- Provides the foundation for controlled, high-quality definition creation\n- Enables a two-stage process: first selection, then processing\n\n---",
+        "height": 880,
+        "width": 736,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        976,
+        656
+      ],
+      "typeVersion": 1,
+      "id": "916d29d7-8bd6-452a-89e9-63845bfffb9a",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## Workflow Integration and Data Flow\n\n### Processing Pathways:\n\n1. **Independent Summary Creation:** Main Summary workflow operates independently\n2. **Two-Stage Keyword Processing:**\n    - **Stage 1:** Junior Extractor (red) creates curated keyword file\n    - **Stage 2:** Mini Extractor (green top) processes those keywords into definitions\n3. **Direct Wiki-Link Processing:** Green bottom stream processes wiki-linked terms directly from summaries\n\n### Data Dependencies:\n\n- **Main Summary → Manual Transfer → Keyword Processing workflows**\n- **Junior Extractor → File Storage → Mini Keyword Extractor From File**\n- **All definition outputs → Centralized definition folder**\n\n---\n\n## Key Features\n\n- **Obsidian Integration:** Optimized formatting for Obsidian note-taking\n- **Modular Design:** Multiple workflow components that can work independently\n- **Manual Control Options:** Junior Extractor provides enhanced user control over keyword selection\n- **Automated Processing:** End-to-end definition creation from extraction to storage\n- **Duplicate Prevention:** Both Main and Mini Checker systems prevent duplicate definitions\n- **Source Attribution:** Includes references in all generated definitions\n- **Flexible Processing:** Two distinct extraction methods for different use cases\n- **File-Based Coordination:** Uses file storage for data transfer between workflow components",
+        "height": 688,
+        "width": 1024,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1264,
+        -1024
+      ],
+      "typeVersion": 1,
+      "id": "1ad8a5fc-14d1-41aa-b9f2-264d603256da",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "# N8N Research Paper Processing Workflow - Complete Setup Guide\n\n**Created by:** Alzi\n\n## Quick Setup Overview\nThis guide will help you configure all three workflow components: Main Summary, Main Keyword Extractor and Defineder, and Keyword Extractor. Follow these steps in order for proper functionality.\n\n---\n\n## Step-by-Step Setup Instructions\n\n### Step 1: Main Summary Workflow Configuration (🟡 Yellow Section)\n\n**What to Configure:** Save to Disk node file path\n\n**Instructions:**\n1. Open the Main Summary workflow\n2. Locate the \"Save to Disk\" node\n3. Configure the file path where you want to save your summaries\n\n**Example Path:**\n```\n/Users/YourName/Documents/Research/Summaries/\n```\n\n**Important:**\n- Make sure the folder exists before running\n- Use `.md` extension for Obsidian compatibility\n- Test with a sample paper to verify it works\n\n---\n\n### Step 2: Main Keyword Extractor and Defineder Configuration (🟢 Green Section)\n\nThis section needs the most configuration work.\n\n#### **A) Configure All Execute Command Agents**\n\n**What to Find:** Any agents that use \"Execute Command\" as their tool\n\n**Instructions:**\n1. Go through the green section workflow\n2. Find all agents with \"Execute Command\" tool\n3. Open each agent's configuration\n4. Set the file path to your definitions folder\n\n**Example Path:**\n```\n/Users/YourName/Documents/Research/Definitions/\n```\n\n**Which Agents to Check:**\n- Word Checker Agent\n- Any file system agents\n- Definition validation agents\n\n#### **B) Configure Save to Folder Nodes**\n\n**What to Find:** All \"Save to Folder\" nodes in the green section\n\n**Instructions:**\n1. Locate each \"Save to Folder\" node\n2. Open the configuration\n3. Set the folder path to your definitions directory\n\n**Example Path:**\n```\n/Users/YourName/Documents/Research/Definitions/\n```\n\n---\n\n### Step 3: Keyword Extractor Configuration (🔴 Red Section)\n\n**What to Configure:** Save files path\n\n**Instructions:**\n1. Open the Keyword Extractor workflow (red section)\n2. Find the \"Save Files\" node\n3. Configure the path where extracted keywords will be saved\n\n**Example Path:**\n```\n/Users/YourName/Documents/Research/Keywords/extracted-keywords.txt\n```\n\n**Important:** Remember this path - you'll need it for the next step!\n\n---\n\n### Step 4: Connect Red and Green Sections\n\n**Critical Integration Step:**\n\n1. Go back to the green section\n2. Find the \"Mini Keyword Extractor From File\" stream\n3. Locate the file reading node\n4. Set this path to **exactly match** the save path from Step 3\n\n**Both paths must be identical:**\n```\n/Users/YourName/Documents/Research/Keywords/extracted-keywords.txt\n```\n\n---\n\n## Testing Your Setup\n\n### Test in This Order:\n\n**Test 1: Main Summary**\n- Upload a research paper\n- Run the Main Summary workflow\n- Check if the summary file is created in your configured folder\n- Verify it opens properly in Obsidian\n\n**Test 2: Keyword Extractor**\n- Use the summary from Test 1\n- Run the Keyword Extractor (red section)\n- Check if the keywords file is created\n- Open the file to verify keywords are properly formatted\n\n**Test 3: Full Definition Creation**\n- Run the Main Keyword Extractor and Defineder (green section)\n- Check if definitions are created in your definitions folder\n- Verify no error messages appear\n\n**Success Indicators:**\n✅ Summary files appear in summaries folder\n✅ Keywords file is created and readable\n✅ Definition files are generated\n✅ No error messages in N8N execution logs\n\n---\n\n## Troubleshooting\n\n**Common Issues:**\n\n**\"File not found\" errors:**\n- Double-check all file paths\n- Make sure folders exist\n- Verify spelling and case sensitivity\n\n**\"Permission denied\" errors:**\n- Check folder permissions\n- Make sure N8N has write access to your directories\n\n**No definitions created:**\n- Verify the keyword file path connection between red and green sections\n- Check that Execute Command agents are properly configured\n\n**Path doesn't work:**\n- Try using full absolute paths instead of relative paths\n- On Windows, use forward slashes: `C:/Users/YourName/Documents/...`\n- On Mac/Linux: `/Users/YourName/Documents/...`\n\n---\n\n## Final Checklist\n\nBefore running the complete workflow:\n\n- [ ] Main Summary save path configured\n- [ ] All Execute Command agents in green section configured\n- [ ] All Save to Folder nodes in green section configured  \n- [ ] Keyword Extractor save path configured\n- [ ] File reading path in green section matches keyword extractor output\n- [ ] All folders exist and have proper permissions\n- [ ] Tested each section individually\n\n**Once all items are checked, your workflow should work perfectly!**",
+        "height": 3904,
+        "width": 1312
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2448,
+        -1504
+      ],
+      "typeVersion": 1,
+      "id": "9a126c77-b06d-48e6-8325-1c68c05f244e",
+      "name": "Sticky Note4"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Upload Research Paper": {
+      "main": [
+        [
+          {
+            "node": "Extract Text From PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text From PDF": {
+      "main": [
+        [
+          {
+            "node": "Summarizer AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model 1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarizer AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model 2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Checker AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Checker AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Json To Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarizer AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Checker AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Json To Binary": {
+      "main": [
+        [
+          {
+            "node": "Save To Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Word Extractor From A File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Word Extractor From A File": {
+      "main": [
+        [
+          {
+            "node": "Word Separator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model 3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Word Extractor From A File",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open File Execute Command": {
+      "ai_tool": [
+        [
+          {
+            "node": "Word Extractor From A File",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text From Summary": {
+      "main": [
+        [
+          {
+            "node": "Extract Words From Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Words From Text": {
+      "main": [
+        [
+          {
+            "node": "Word Separator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model 4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract Words From Text",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Word Separator": {
+      "main": [
+        [
+          {
+            "node": "Looper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Looper": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Word Checker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Word Checker": {
+      "main": [
+        [
+          {
+            "node": "Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dir Folder Execute Command": {
+      "ai_tool": [
+        [
+          {
+            "node": "Word Checker",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model 5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Word Checker",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate": {
+      "main": [
+        [
+          {
+            "node": "Title and Definition",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Word Defineder",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Looper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Word Defineder": {
+      "main": [
+        [
+          {
+            "node": "Json to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model 6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Word Defineder",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Json to Binary": {
+      "main": [
+        [
+          {
+            "node": "Title and Definition",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Title and Definition": {
+      "main": [
+        [
+          {
+            "node": "Title",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Title": {
+      "main": [
+        [
+          {
+            "node": "Save To Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save To Folder": {
+      "main": [
+        [
+          {
+            "node": "Looper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model 7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Word Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Submit Research Paper Summary": {
+      "main": [
+        [
+          {
+            "node": "Extract Text From Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Submit Summary": {
+      "main": [
+        [
+          {
+            "node": "Extract Text From File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text From File": {
+      "main": [
+        [
+          {
+            "node": "Word Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Word Extractor": {
+      "main": [
+        [
+          {
+            "node": "JSON To Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON To Binary": {
+      "main": [
+        [
+          {
+            "node": "Saves File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5cf1b5be-521e-4ad9-9857-878b6f4f570a",
+  "meta": {
+    "instanceId": "dd5de6f760468a2fbd3aa7fb060cd7f5fdd342552e0c6dcdfd7da87ce81484ef"
+  },
+  "id": "wa7KXhINOwINnAg9",
+  "tags": []
+}
