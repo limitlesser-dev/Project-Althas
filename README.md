@@ -160,4 +160,4 @@ We welcome contributions! Here’s how you can help:
 
 ---
 
-**Let’s make AI research accessible, together!** 🚀
+**Let’s make AI research accessible, together!** 🚀.
