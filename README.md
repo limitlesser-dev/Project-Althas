@@ -107,6 +107,12 @@ New to Project Althas? Begin your journey with our **[[🚀Start Here - Decoding
 
 ---
 
+### Best Experience Tip
+
+To have the best experience reading Summaries, Definitions, etc, please switch to Reading View in Obsidian. You can do this by clicking the button in the top-right corner of Obsidian. This will ensure everything displays properly and is easier to follow. (Editing View is for writing, Reading View is for smooth reading.)
+
+---
+
 ## 🤝 **Contribution Guidelines**
 
 We welcome contributions! Here’s how you can help:
