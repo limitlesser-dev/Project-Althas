@@ -98,7 +98,7 @@ To set up **n8n** for Project Althas:
 
 ## 🚀 **Start from Here**
 
-New to Project Althas? Begin your journey with our **\[Central Hub]\(🚀Start Here - Decoding Artificial Intelligence(An In-Depth Exploration))**—a **collection of sneak peek summaries and primary details** for quick reference. This hub includes:
+New to Project Althas? Begin your journey with our **[[🚀Start Here - Decoding Artificial Intelligence(An In-Depth Exploration)|Central Hub]]**—a **collection of sneak peek summaries and primary details** for quick reference. This hub includes:
 
 * **Sneak peeks** of research paper summaries.
 * **Primary details** and insights.
