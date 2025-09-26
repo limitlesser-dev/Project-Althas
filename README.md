@@ -50,7 +50,7 @@ To use **Project Althas**, follow these steps:
 2. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/your-username/althas.git
+   git clone https://github.com/limitlesser-dev/Project-Althas.git
    ```
 
 3. **Open the Repository in Obsidian**:
@@ -89,6 +89,8 @@ To set up **n8n** for Project Althas:
    * Create a new workflow in n8n.
    * Click the three dots on the side, then select **Import from File**.
    * Choose the JSON file: `project-althas-n8n-workflows.json`.
+  
+     
 
 4. **Done!**
 
