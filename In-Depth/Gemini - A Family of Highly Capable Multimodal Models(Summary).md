@@ -13,6 +13,7 @@ tags:
 ![[Gemini_Unlocked__The_Native_Multimodality_and_Reasoning_Breakth.mp4]]
 ![[Google_Gemini_logo.svg.png]]
 # Gemini: A Family of Highly Capable Multimodal Models
+![[Gemini - A Family of Highly Capable Multimodal Models.pdf]]
 
 This report introduces **Gemini**, a new family of highly capable multimodal models developed by [[Google DeepMind]]. Gemini models exhibit remarkable capabilities across image, audio, video, and text understanding.
 

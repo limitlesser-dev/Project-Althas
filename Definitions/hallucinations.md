@@ -39,7 +39,7 @@ When an AI model **hallucinates**, it essentially "makes up" information. Imagin
 
 ### How It Works
 
-**Hallucinations** primarily arise from the inherent nature of [[Neural Networks]], especially [[Transformer Architecture]] models that power LLMs. These models are trained to predict the next token (word or sub-word unit) in a sequence based on the preceding tokens. This process is fundamentally probabilistic; the model assigns a likelihood to many possible next tokens and selects one, often guided by parameters like *temperature* (which controls randomness) or *top-p sampling* (which selects from the most probable tokens).
+**Hallucinations** primarily arise from the inherent nature of [[Neural Network|Neural Networks]], especially [[Transformer Models|Transformer Architecture]] models that power LLMs. These models are trained to predict the next token (word or sub-word unit) in a sequence based on the preceding tokens. This process is fundamentally probabilistic; the model assigns a likelihood to many possible next tokens and selects one, often guided by parameters like *temperature* (which controls randomness) or *top-p sampling* (which selects from the most probable tokens).
 
 Several factors contribute to hallucinations:
 
