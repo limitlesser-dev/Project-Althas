@@ -1,47 +1,171 @@
-# Hi, I'm Azeem Sheikh 👋 (aka limitlesser)
+# Project-Althas
 
-🚀 I'm an aspiring developer, explorer, and endlessly curious thinker.  
-My mission? To be a **Limitlesser** — someone who challenges the boundaries of the human mind and spirit.
+# Project Althas: AI Research Paper Summaries & Automation
 
-I believe the human brain holds far more potential than we realize. Through ambitious journeys that seem unreachable or impossible, I want to **test**, **explore**, and **unlock** what’s truly possible.
+**Empowering researchers and AI enthusiasts with concise, accessible summaries of cutting-edge AI research papers, open-source projects, and technical documents.**
 
-I'm also deeply drawn to **creativity** — from music and visual storytelling to experimental design. I believe coding is just another form of art, and great technology should not only work — it should **feel** alive.
+---
 
-To me, it’s not just about building with AI — it’s about pushing both machine and mind to their full potential. I want to feel what it means to be **limitless**.
+## 🌟 **Who Am I?**
 
-## 🧠 Current Focus
-- Competing in hackathons and building things fast ⚡
-- Collaborating with like-minded creators and developers
-- Exploring the limits of AI and human potential
-- Learning how the brain works and how machines might think
+Hi! I’m **Azeem Sheikh**, a **Class 12 student** passionate about **Artificial Intelligence** and **automation**. I created **Project Althas** to help researchers, students, and AI enthusiasts **save time** and **understand complex research papers** more easily.
 
-## 💼 Leadership Skills
-- **Vision Setter:** I love creating ambitious goals that challenge conventional thinking, inspiring teams to reach beyond limits.
-- **Team Motivator:** Bringing people together, fueling enthusiasm, and helping everyone unlock their creative energy.
-- **Decision Maker:** Comfortable making thoughtful decisions under pressure, especially when rapid pivots or bold moves are needed in hackathons.
-- **Empathy & Communication:** I prioritize listening, honest communication, and making sure every member’s voice matters.
-- **Collaborative Spirit:** I thrive in diverse teams, fostering inclusion and mutual respect to turn ideas into action.
-- **Growth Mindset:** Embracing mistakes as learning opportunities, and driving continuous growth for myself and those around me.
+---
 
-## 🛠️ Tech Skills
-- 💻 HTML, CSS, JavaScript – Frontend foundations
-- 🐍 Python (basic) – learning through AI experiments
-- 🧠 AI Tools & APIs – GPT, OpenAI, AI-based apps
-- 🎨 Design thinker – I care about how things *feel*, not just work
-- Automation - N8N
+## 🚀 **Why Project Althas?**
 
-## 🌟 Featured Projects
+While reading the research paper *Absolute Zero*, I realized how **time-consuming** and **overwhelming** it can be to digest long, technical documents. That’s when I discovered the power of **AI-generated summaries**—they made the content **easy to understand** and **accessible**.
 
-- **Althas Project:** Innovative venture focused on [briefly describe the nature or your goal of Althas Project—add a sentence or two if you wish!]
+**Project Althas** is my solution to this problem:
 
-> 👀 Check back soon for updates as I grow my portfolio
+* A **library** of AI-generated summaries for **AI research papers, open-source projects, and technical documents**.
+* **Automated workflows** (using **n8n**) to streamline the summarization process.
+* A **growing collection** of summaries, updated **weekly**.
 
-## 🤝 Let's Collaborate!
-I love teaming up with people who:
-- Build fast and learn fast
-- Think deeply about how tech shapes the future
-- Want to push the boundaries of what's possible with human + AI synergy
+---
 
-> "No Limits, No Bondres,
-We Keep Moving Forward,
-We Are Limitessers" – A motto I live by.
+## 📚 **What’s Inside?**
+
+* **Summaries** of AI research papers, open-source projects, and technical documents.
+* **Automation tools** to generate and update summaries efficiently.
+* **Collaboration opportunities** for researchers, developers, and AI enthusiasts.
+
+---
+
+## 🤖 **Special Thanks**
+
+* **Google Gemini**: For providing generous API credits, making this project possible.
+* **n8n**: For enabling seamless automation and integration with the Google Gemini API.
+
+---
+
+## 🔧 **Installation Guide**
+
+To use **Project Althas**, follow these steps:
+
+1. **Install Obsidian** on your device:
+
+   * Download and install [Obsidian](https://obsidian.md) from the official website.
+
+2. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/limitlesser-dev/Project-Althas.git
+   ```
+
+3. **Open the Repository in Obsidian**:
+
+   * Launch Obsidian.
+   * Select **"Open folder as vault"** and choose the cloned `althas` folder.
+
+4. **Keep Your Library Updated**:
+
+   * Since the repository is updated **weekly**, regularly pull the latest changes:
+
+   ```bash
+   git pull
+   ```
+
+---
+
+## ⚙️ **Setup n8n Workflow**
+
+To set up **n8n** for Project Althas:
+
+1. **Install n8n** using npm:
+
+   ```bash
+   npm install n8n -g
+   ```
+
+2. **Open n8n**:
+
+   ```bash
+   n8n
+   ```
+
+3. **Import Workflow File**:
+
+   * Create a new workflow in n8n.
+   * Click the three dots on the side, then select **Import from File**.
+   * Choose the JSON file: `project-althas-n8n-workflows.json`.
+  
+     
+
+4. **Done!**
+
+   * Your n8n setup is complete and ready to generate automated summaries.
+
+---
+
+## 🚀 **Start from Here**
+
+New to Project Althas? Begin your journey with our **[[🚀Start Here - Decoding Artificial Intelligence(An In-Depth Exploration)|Central Hub]]**—a **collection of sneak peek summaries and primary details** for quick reference. This hub includes:
+
+* **Sneak peeks** of research paper summaries.
+* **Primary details** and insights.
+* **Links to NotebookLM summaries** (a Google AI tool for in-depth exploration).
+* **Related resources** and technical documents.
+
+---
+
+### Best Experience Tip
+
+To have the best experience reading Summaries, Definitions, etc, please switch to Reading View in Obsidian. You can do this by clicking the button in the top-right corner of Obsidian. This will ensure everything displays properly and is easier to follow. (Editing View is for writing, Reading View is for smooth reading.)
+
+---
+
+## 🤝 **Contribution Guidelines**
+
+We welcome contributions! Here’s how you can help:
+
+### **How to Contribute**
+
+* **Add New Summaries**: Submit summaries for new research papers, open-source projects, or technical documents.
+* **Improve Automation**: Enhance the n8n workflows.
+* **Fix Issues**: Report bugs or suggest improvements via GitHub Issues.
+* **Review Content**: Help ensure summaries are accurate and clear.
+
+### **Steps to Contribute**
+
+1. **Fork the Repository**: Create your own copy of the project.
+2. **Create a Branch**:
+
+   ```bash
+   git checkout -b your-branch-name
+   ```
+3. **Make Changes**: Add summaries, improve automation, or fix issues.
+4. **Commit and Push**:
+
+   ```bash
+   git add .
+   git commit -m "Your descriptive message"
+   git push origin your-branch-name
+   ```
+5. **Open a Pull Request**: Submit your changes for review.
+
+---
+
+## ⚠️ **Disclaimer**
+
+* **AI-Generated Content**: Summaries are generated using AI. While we strive for accuracy, always cross-reference with the original research paper or document.
+* **For Learning Purposes**: If you’re writing your first research paper, we recommend reading the **full paper** to understand the structure and methodology.
+
+---
+
+## 📅 **Roadmap**
+
+* **Weekly Updates**: Adding **one new summary** every week.
+* **Expanding Automation**: Making the process even faster and more efficient.
+* **Community Growth**: Building a space for AI researchers and learners.
+
+---
+
+## 📜 Licensing
+
+* **Summaries and Documents**: Licensed under [Creative Commons Attribution 4.0 (CC BY 4.0)](LICENSE-CC-BY-4.0).
+* **n8n Workflows**: Licensed under [GNU General Public License v3 (GPLv3)](LICENSE).
+
+---
+
+**Let’s make AI research accessible, together!** 🚀.
